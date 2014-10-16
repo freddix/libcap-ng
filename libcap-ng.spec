@@ -1,7 +1,8 @@
+# based on PLD Linux spec git://git.pld-linux.org/packages/libcap-ng.git
 Summary:	Next Generation of POSIX capabilities library
 Name:		libcap-ng
 Version:	0.7.4
-Release:	2
+Release:	3
 License:	LGPL v2.1+ (library), GPL v2+ (utilities)
 Group:		Libraries
 Source0:	http://people.redhat.com/sgrubb/libcap-ng/%{name}-%{version}.tar.gz
@@ -9,10 +10,6 @@ Source0:	http://people.redhat.com/sgrubb/libcap-ng/%{name}-%{version}.tar.gz
 URL:		http://people.redhat.com/sgrubb/libcap-ng/
 BuildRequires:	attr-devel
 BuildRequires:	automake
-BuildRequires:	linux-libc-headers
-BuildRequires:	python-devel
-BuildRequires:	rpm-pythonprov
-BuildRequires:	swig-python
 BuildRoot:	%{tmpdir}/%{name}-%{version}-root-%(id -u -n)
 
 %description
@@ -40,15 +37,6 @@ This package contains applications to analyse the POSIX capabilities
 of all the program running on a system. It also lets you set the file
 system based capabilities.
 
-%package -n python-capng
-Summary:	Python interface to libcap-ng library
-Group:		Libraries/Python
-Requires:	%{name} = %{version}-%{release}
-%pyrequires_eq	python-libs
-
-%description -n python-capng
-Python interface to libcap-ng library.
-
 %prep
 %setup -q
 
@@ -58,7 +46,8 @@ Python interface to libcap-ng library.
 %{__automake}
 %{__autoconf}
 %configure \
-	--disable-static
+	--disable-static    \
+	--with-python=no
 %{__make}
 
 %install
@@ -66,9 +55,6 @@ rm -rf $RPM_BUILD_ROOT
 
 %{__make} install \
 	DESTDIR=$RPM_BUILD_ROOT
-
-%py_postclean
-%{__rm} $RPM_BUILD_ROOT%{py_sitedir}/_capng.la
 
 %clean
 rm -rf $RPM_BUILD_ROOT
@@ -101,9 +87,4 @@ rm -rf $RPM_BUILD_ROOT
 %{_mandir}/man8/filecap.8*
 %{_mandir}/man8/netcap.8*
 %{_mandir}/man8/pscap.8*
-
-%files -n python-capng
-%defattr(644,root,root,755)
-%attr(755,root,root) %{py_sitedir}/_capng.so
-%{py_sitedir}/capng.py[co]
 
