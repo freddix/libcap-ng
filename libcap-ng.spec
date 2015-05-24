@@ -1,12 +1,12 @@
 # based on PLD Linux spec git://git.pld-linux.org/packages/libcap-ng.git
 Summary:	Next Generation of POSIX capabilities library
 Name:		libcap-ng
-Version:	0.7.4
-Release:	3
+Version:	0.7.7
+Release:	1
 License:	LGPL v2.1+ (library), GPL v2+ (utilities)
 Group:		Libraries
 Source0:	http://people.redhat.com/sgrubb/libcap-ng/%{name}-%{version}.tar.gz
-# Source0-md5:	55c57c0673b944ea1a755bcb2636dabd
+# Source0-md5:	3d7d126b29e2869a0257c17c8b0d9b2e
 URL:		http://people.redhat.com/sgrubb/libcap-ng/
 BuildRequires:	attr-devel
 BuildRequires:	automake
